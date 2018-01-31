@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS TutorialsPoint(Username VARCHAR,Password VARCHAR,Adresa VARCHAR);");
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('admin','admin','admin');");
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('radenko','kokanovic','Crnjelovo');");
-        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('slavko','kokanovic','Crnjelovo');");
+        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('slavko','kokanovic','Gornje Crnjelovo');");
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('test','module','Batkovic');");
 
         Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint",null);
