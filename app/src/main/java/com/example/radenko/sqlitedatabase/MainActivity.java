@@ -16,11 +16,11 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase mydatabase=openOrCreateDatabase("TestDB",MODE_PRIVATE,null);;
 
         mydatabase.execSQL("DROP TABLE IF EXISTS TutorialsPoint;");
-        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS TutorialsPoint(Username VARCHAR,Password VARCHAR);");
-        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('admin','admin');");
-        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('radenko','kokanovic');");
-        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('slavko','kokanovic');");
-        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('test','module');");
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS TutorialsPoint(Username VARCHAR,Password VARCHAR,Adresa VARCHAR);");
+        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('admin','admin','admin');");
+        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('radenko','kokanovic','Crnjelovo');");
+        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('slavko','kokanovic','Crnjelovo');");
+        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('test','module','Bijeljina');");
 
         Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint",null);
        // resultSet.moveToFirst();
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("password", resultSet.getString(1));
 
             Log.i("Username ",resultSet.getString(0));
+
+            Log.i("Adresa", resultSet.getString(2));
         }
 
     }
