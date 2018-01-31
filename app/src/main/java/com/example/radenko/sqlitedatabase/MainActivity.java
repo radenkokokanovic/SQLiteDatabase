@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('admin','admin','admin');");
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('radenko','kokanovic','Crnjelovo');");
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('slavko','kokanovic','Crnjelovo');");
-        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('test','module','Bijeljina');");
+        mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('test','module','Batkovic');");
 
         Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint",null);
        // resultSet.moveToFirst();
