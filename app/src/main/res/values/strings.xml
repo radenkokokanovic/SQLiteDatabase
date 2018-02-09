@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">SQLiteDatabase</string>
+    <string name="app_name">AppXeKurir</string>
+    <string name="login">Login</string>
+    <string name="second">Akcije dostave</string>
+    <string name="dostava">Dostava</string>
+    <string name="neuspjeladostava">Neuspjela dostava</string>
 </resources>

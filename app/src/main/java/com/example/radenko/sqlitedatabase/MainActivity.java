@@ -1,8 +1,13 @@
 package com.example.radenko.sqlitedatabase;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +19,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public SQLiteDatabase mydatabase;
+    public Button login;
+    public   EditText txtUser;
+    public  EditText txtPass;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,48 +37,45 @@ public class MainActivity extends AppCompatActivity {
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('slavko','kokanovic','Gornje Crnjelovo');");
         mydatabase.execSQL("INSERT INTO TutorialsPoint VALUES('damir','zecevic','Bijeljina');");
 
-        Button login=(Button) findViewById(R.id.btnLogin);
-        final EditText txtUser=(EditText) findViewById(R.id.txt_user);
-        final EditText txtPass=(EditText) findViewById(R.id.txt_pass);
-        Button registracija=(Button) findViewById(R.id.btn_Registracija);
+         login=(Button) findViewById(R.id.btnLogin);
+         txtUser=(EditText) findViewById(R.id.txt_user);
+         txtPass=(EditText) findViewById(R.id.txt_pass);
 
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              //  Toast.makeText(MainActivity.this,"Kliknuli ste na login", Toast.LENGTH_LONG).show();
+        if(!runtime_permissions())
+            enable_buttons();
 
 
-                Intent drugiScreen=new Intent(MainActivity.this,SecondScreen.class);
-                Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint where Username='"+txtUser.getText().toString()+"' and Password = '"+txtPass.getText().toString()+"'",null);
-                // resultSet.moveToFirst();
-//        String username = resultSet.getString(0);
-//        String password = resultSet.getString(1);
-                int broj=resultSet.getCount();
-                if (broj==1) {
-                    drugiScreen.putExtra("ime", txtUser.getText().toString());
-                    Toast.makeText(MainActivity.this, "Uspjesno ste se logovali", Toast.LENGTH_SHORT).show();
-                    startActivity(drugiScreen);
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Greska,podaci nisu tačni", Toast.LENGTH_SHORT).show();
-                }
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//              //  Toast.makeText(MainActivity.this,"Kliknuli ste na login", Toast.LENGTH_LONG).show();
+//
+//
+//                Intent drugiScreen=new Intent(MainActivity.this,SecondScreen.class);
+//                Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint where Username='"+txtUser.getText().toString()+"' and Password = '"+txtPass.getText().toString()+"'",null);
+//                // resultSet.moveToFirst();
+////        String username = resultSet.getString(0);
+////        String password = resultSet.getString(1);
+//                int broj=resultSet.getCount();
+//                if (broj==1) {
+//                    drugiScreen.putExtra("ime", txtUser.getText().toString());
+//                    Toast.makeText(MainActivity.this, "Uspjesno ste se logovali RND", Toast.LENGTH_SHORT).show();
+//                    startActivity(drugiScreen);
+//
+//                }
+//                else
+//                {
+//                    Toast.makeText(MainActivity.this, "Greska,podaci nisu tačni", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//
+//            }
+//        });
 
 
-
-            }
-        });
-
-        registracija.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Pokrenuli ste registraciju", Toast.LENGTH_SHORT).show();
-                Intent registracijaScreen=new Intent(MainActivity.this,Registracija.class);
-                startActivity(registracijaScreen);
-            }
-        });
-
+//test
         String ime="slavko";
 
         Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint where Username='"+ime+"'",null);
@@ -92,5 +97,72 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Adresa", resultSet.getString(2));
         }
 
+    }
+    private void enable_buttons() {
+
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //  Toast.makeText(MainActivity.this,"Kliknuli ste na login", Toast.LENGTH_LONG).show();
+
+
+                Intent drugiScreen=new Intent(MainActivity.this,SecondScreen.class);
+                Cursor resultSet = mydatabase.rawQuery("Select * from TutorialsPoint where Username='"+txtUser.getText().toString()+"' and Password = '"+txtPass.getText().toString()+"'",null);
+                // resultSet.moveToFirst();
+//        String username = resultSet.getString(0);
+//        String password = resultSet.getString(1);
+                int broj=resultSet.getCount();
+                if (broj==1) {
+                    drugiScreen.putExtra("ime", txtUser.getText().toString());
+                    Toast.makeText(MainActivity.this, "Uspjesno ste se logovali RND", Toast.LENGTH_SHORT).show();
+
+                    startActivity(drugiScreen);
+
+
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Greska,podaci nisu tačni", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
+
+
+
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("myapp", "onClick: Kliknuli ste dugme");
+//                Intent i = new Intent(getApplicationContext(), GPS_Service.class);
+//                startService(i);
+//            }
+//        });
+    }
+    private boolean runtime_permissions() {
+        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},100);
+
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100){
+            if( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                enable_buttons();
+            }else {
+                runtime_permissions();
+            }
+        }
     }
 }
