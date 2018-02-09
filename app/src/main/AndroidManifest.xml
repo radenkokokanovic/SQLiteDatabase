@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.radenko.sqlitedatabase">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,15 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/login"
+            android:roundIcon="@mipmap/ic_launcher_round">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondScreen" />
-        <activity android:name=".Registracija"></activity>
+        <activity
+            android:name=".SecondScreen"
+            android:label="@string/second"/>
+        <activity android:name=".Registracija" />
+        <activity android:name=".Dostava"
+            android:label="@string/dostava"
+            />
+        <activity android:name=".NeuspjelaDostava"
+            android:label="Neuspjela dostava"/>
+
+        <service android:name=".GPS_Service"/>
     </application>
+
 
 </manifest>
