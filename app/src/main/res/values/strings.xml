@@ -4,4 +4,13 @@
     <string name="second">Akcije dostave</string>
     <string name="dostava">Dostava</string>
     <string name="neuspjeladostava">Neuspjela dostava</string>
+
+    <string-array name="names">
+        <item>Izaberite kategoriju...</item>
+        <item>Oštećena pošiljka</item>
+        <item>Niko se ne javlja na pozive</item>
+        <item>Primalac nije kod kuće</item>
+        <item>Pogrešna adresa</item>
+        <item>Primalac odbio primiti pošiljku</item>
+    </string-array>
 </resources>

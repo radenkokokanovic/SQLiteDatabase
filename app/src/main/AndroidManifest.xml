@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,6 @@
         <activity
             android:name=".MainActivity"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/login"
             android:roundIcon="@mipmap/ic_launcher_round">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,18 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SecondScreen"
-            android:label="@string/second"/>
+        <activity android:name=".SecondScreen" />
         <activity android:name=".Registracija" />
-        <activity android:name=".Dostava"
-            android:label="@string/dostava"
-            />
-        <activity android:name=".NeuspjelaDostava"
-            android:label="Neuspjela dostava"/>
+        <activity android:name=".Dostava" />
+        <activity android:name=".NeuspjelaDostava" />
 
-        <service android:name=".GPS_Service"/>
+        <service android:name=".GPS_Service" />
+
+        <activity android:name=".QR_Scaner" />
+        <activity android:name=".DisplayListView"></activity>
     </application>
-
 
 </manifest>

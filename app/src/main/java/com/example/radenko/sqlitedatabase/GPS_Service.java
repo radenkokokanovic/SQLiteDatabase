@@ -6,6 +6,7 @@ package com.example.radenko.sqlitedatabase;
 
 import android.Manifest;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,6 +33,9 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
+
 /**
  * Created by filipp on 6/16/2016.
  */
@@ -42,20 +46,41 @@ public class GPS_Service extends Service {
     public StringRequest request;
     RequestQueue requestQueue;
     public String insertURL="http://korisnik.telrad.net/telradServis/stranice/getPodatkeAndy.php";
+    String ime;
+
+    @Override
+    public ComponentName startService(Intent service) {
+
+
+        return super.startService(service);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        ime=intent.getStringExtra("ime");
+        Log.d("test--->",ime.toString());
+        return super.onStartCommand(intent, flags, startId);
+    }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+
         return null;
     }
 
+
+
     @Override
     public void onCreate() {
+
+
         Log.d("myapp", "pokrenut servis");
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(final Location location) {
                 Intent i = new Intent("location_update");
+
                 Log.d("myapp", "onLocationChanged: '"+location.getLongitude()+"'");
 
                 i.putExtra("coordinates", location.getLongitude() + " " + location.getLatitude());
@@ -80,10 +105,12 @@ public class GPS_Service extends Service {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String,String> parameters  = new HashMap<String, String>();
 
-                        parameters.put("macAdresa","testiranje");
+
+                        parameters.put("macAdresa",ime.toString());
                         parameters.put("lat", Double.toString(location.getLatitude()));
                         parameters.put("long", Double.toString(location.getLongitude()));
                         Log.d("myapp", "getParams: "+Double.toString( location.getLatitude()));
+                        Log.d("myapp", "getParams: "+ime);
 
                         return parameters;
                     }
@@ -126,7 +153,7 @@ public class GPS_Service extends Service {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, listener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 50000, 0, listener);
 
     }
 
